@@ -105,6 +105,7 @@ TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_EXTRA_LANGUAGES := true
 TW_NO_SCREEN_BLANK := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_SUPPORT_INPUT_AIDL_HAPTICS := true
 TW_USE_TOOLBOX := true
 TW_EXCLUDE_APEX := true
 TW_INCLUDE_RESETPROP := true
