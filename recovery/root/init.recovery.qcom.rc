@@ -1,6 +1,7 @@
 import /init.recovery.qcom_decrypt.rc
 
 on init
+    start detect-dynamic-partitions
     exec u:r:recovery:s0 -- /system/bin/resetprop ro.boot.verifiedbootstate orange
 
 on boot
@@ -10,3 +11,10 @@ on boot
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
+service detect-dynamic-partitions /system/bin/detect-dynamic-partitions.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
