@@ -15,4 +15,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_jasmine_sprout.mk
+    $(LOCAL_DIR)/twrp_jasmine_sprout.mk
+
+COMMON_LUNCH_CHOICES := \
+    twrp_jasmine_sprout-eng

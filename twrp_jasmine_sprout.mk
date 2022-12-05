@@ -14,38 +14,28 @@
 # limitations under the License.
 #
 
+# Inherit from hardware-specific part of the product configuration
+$(call inherit-product, device/xiaomi/jasmine_sprout/device.mk)
+
+# Inherit from common AOSP config
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
+$(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/embedded.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
+# Inherit from our custom product configuration
+$(call inherit-product, vendor/twrp/config/common.mk)
+
 # Release name
 PRODUCT_RELEASE_NAME := jasmine_sprout
 
-$(call inherit-product, build/target/product/embedded.mk)
-
-# Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
-
-# Inherit language packages
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    charger
-
-# Define time zone data path
-ifneq ($(wildcard bionic/libc/zoneinfo),)
-    TZDATAPATH := bionic/libc/zoneinfo
-else ifneq ($(wildcard system/timezone),)
-    TZDATAPATH := system/timezone/output_data/iana
-endif
-
-# Time Zone data for Recovery
-ifdef TZDATAPATH
-PRODUCT_COPY_FILES += \
-    $(TZDATAPATH)/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
-endif
-
 ## Device identifier. This must come after all inclusions
-PRODUCT_NAME := omni_jasmine_sprout
+PRODUCT_NAME := twrp_jasmine_sprout
 PRODUCT_DEVICE := jasmine_sprout
+PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Mi A2
-PRODUCT_MANUFACTURER := Xiaomi
+
+TARGET_VENDOR_PRODUCT_NAME := jasmine
+TARGET_VENDOR_DEVICE_NAME := jasmine

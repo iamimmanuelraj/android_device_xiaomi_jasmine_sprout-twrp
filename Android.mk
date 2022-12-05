@@ -25,6 +25,8 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter jasmine_sprout,$(TARGET_DEVICE)),)
+ifeq ($(TARGET_DEVICE),jasmine_sprout)
+
 include $(call all-makefiles-under,$(LOCAL_PATH))
+
 endif
