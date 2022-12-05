@@ -55,6 +55,18 @@ ALLOW_MISSING_DEPENDENCIES := true
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
+# Qcom Decryption
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+TW_USE_FSCRYPT_POLICY := 1
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+
+# Hack: prevent anti rollback
+PLATFORM_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 99.87.36
+VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
+
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3
 BOARD_KERNEL_CMDLINE += loop.max_part=7
@@ -96,10 +108,18 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 
 # Libraries
 TARGET_RECOVERY_DEVICE_MODULES += \
-    android.hardware.boot@1.0
+    android.hardware.boot@1.0 \
+    android.hidl.base@1.0 \
+    libicuuc \
+    libion \
+    libxml2
 
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.boot@1.0.so
+    $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.boot@1.0.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/android.hidl.base@1.0.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so
 
 # TWRP Configuration
 BOARD_HAS_NO_REAL_SDCARD := true
