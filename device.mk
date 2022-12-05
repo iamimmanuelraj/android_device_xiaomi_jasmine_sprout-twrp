@@ -10,6 +10,12 @@ AB_OTA_POSTINSTALL_CONFIG += \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
 
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_product=true \
+    POSTINSTALL_PATH_product=bin/check_dynamic_partitions \
+    FILESYSTEM_TYPE_product=ext4 \
+    POSTINSTALL_OPTIONAL_product=false
+
 PRODUCT_PACKAGES += \
     otapreopt_script
 
@@ -25,12 +31,25 @@ PRODUCT_PACKAGES += \
     update_engine_sideload \
     update_verifier
 
+# Fastbootd
+TW_INCLUDE_FASTBOOTD := true
+PRODUCT_PACKAGES += \
+    fastbootd \
+    android.hardware.fastboot@1.0-impl-mock \
+    android.hardware.fastboot@1.0-impl-mock.recovery
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.fastbootd.available=true
+
 # Qcom decryption
 PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
 
-# Verity
-PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/c0c4000.sdhci/by-name/system
-PRODUCT_VENDOR_VERITY_PARTITION := /dev/block/platform/soc/c0c4000.sdhci/by-name/vendor
-$(call inherit-product, build/target/product/verity.mk)
+# Retrofit Dynamic Partition
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.boot.dynamic_partitions=true \
+	ro.boot.dynamic_partitions_retrofit=true
