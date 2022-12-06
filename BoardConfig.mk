@@ -137,7 +137,6 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
 TW_DEVICE_VERSION := jasmine by xiaoleGun 1205
 BOARD_HAS_NO_REAL_SDCARD := true
 TW_THEME := portrait_hdpi
-TW_MAX_BRIGHTNESS := 100
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_EXTRA_LANGUAGES := true
 TW_NO_SCREEN_BLANK := true
