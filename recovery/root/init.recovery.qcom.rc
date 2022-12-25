@@ -1,12 +1,18 @@
 import /init.recovery.qcom_decrypt.rc
 
+on boot
+    start health-hal-2-1
+
 on init
     start detect-dynamic-partitions
     exec u:r:recovery:s0 -- /system/bin/resetprop ro.boot.verifiedbootstate orange
+    setprop sys.usb.configfs 1
 
-on boot
-    start health-hal-2-1
-    setprop sys.usb.config adb
+on property:ro.boot.usbcontroller=*
+    setprop sys.usb.controller ${ro.boot.usbcontroller}
+    wait /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode
+    write /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode peripheral
+    wait /sys/class/udc/${ro.boot.usbcontroller} 1
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
