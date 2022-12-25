@@ -99,7 +99,7 @@ BOARD_EXT4_SHARE_DUP_BLOCKS := true
 BOARD_SUPER_PARTITION_GROUPS := jasmine_dynamic_partitions
 BOARD_JASMINE_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product system_ext odm
 $(foreach p, $(call to-upper, $(BOARD_JASMINE_DYNAMIC_PARTITIONS_PARTITION_LIST)), \
-    $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := ext4) \
+    $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs) \
     $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
 BOARD_SUPER_PARTITION_SIZE := 5368709120
 BOARD_JASMINE_DYNAMIC_PARTITIONS_SIZE := 5364514816
